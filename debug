@@ -1,6 +1,8 @@
 #!/bin/bash
 
 uname -a
-ls -lR /usr/lib
+pushd /usr/lib
+find . -name "*java*"
+#ls -lR /usr/lib
 dpkg -l --no-pager
 
