@@ -1,0 +1,15 @@
+# Server build artifacts
+server/build/
+server/.gradle/
+
+# Client build artifacts
+client/dist/
+client/node_modules/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store

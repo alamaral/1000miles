@@ -1,4 +1,4 @@
-.PHONY: all client server clean test
+.PHONY: all client server clean test debug
 
 JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 
@@ -6,6 +6,7 @@ all: debug server client
 
 debug:
 	./debug
+
 server:
 	cd server && ./gradlew build
 
