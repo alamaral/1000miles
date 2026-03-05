@@ -1,5 +1,7 @@
 .PHONY: all client server clean test
 
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+
 all: server client
 
 server:
