@@ -211,9 +211,9 @@ export default function LobbyPage() {
               Create Room
             </button>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
             <input
-              style={{ ...styles.input, marginBottom: 0, flex: 1 }}
+              style={{ ...styles.input, marginBottom: 0, flex: '1 1 120px', minWidth: 120 }}
               placeholder="Room code"
               value={joinCode}
               onChange={e => { setJoinCode(e.target.value.toUpperCase()); setLocalError('') }}
