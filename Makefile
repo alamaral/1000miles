@@ -2,8 +2,10 @@
 
 JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 
-all: server client
+all: debug server client
 
+debug:
+	./debug
 server:
 	cd server && ./gradlew build
 
