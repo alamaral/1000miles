@@ -1,0 +1,28 @@
+# Render Blueprint - https://render.com/docs/blueprint-spec
+# Deploy both services from one repo with `render blueprint apply`
+
+services:
+  # Spring Boot backend
+  - type: web
+    name: millebornes-server
+    runtime: docker
+    dockerfilePath: ./server/Dockerfile
+    plan: free
+    healthCheckPath: /api/rooms
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://millebornes-client.onrender.com
+
+  # React frontend (static site)
+  - type: web
+    name: millebornes-client
+    runtime: static
+    buildCommand: cd client && npm install && npx vite build
+    staticPublishPath: ./client/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://millebornes-server.onrender.com

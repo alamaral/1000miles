@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 28a82159df9fd04e806dddf3d27c9abc53f60d6b Alan Amaral <alan.amaral@avispl.com> 1771517579 -0500	commit (initial): Working code.
+28a82159df9fd04e806dddf3d27c9abc53f60d6b c4cef3c21f49a3eac4a22aef9719af8126308abe Alan Amaral <alan.amaral@avispl.com> 1771611224 -0500	commit: Add drag-and-drop, mobile support, spectator mode, and session persistence
+c4cef3c21f49a3eac4a22aef9719af8126308abe 62d542e20492e08ad0c8dc928600de060423312e Alan Amaral <alan.amaral@avispl.com> 1771611463 -0500	commit: Add .gitignore for build artifacts
+62d542e20492e08ad0c8dc928600de060423312e 4f4ee116413e8350b45490ea215817a838d1a1b8 Alan Amaral <alan.amaral@avispl.com> 1772209992 -0500	commit: Much working.
+4f4ee116413e8350b45490ea215817a838d1a1b8 0a1295c761305691060e727cca436ec292ccf5fb Alan Amaral <alan.amaral@avispl.com> 1772211204 -0500	commit: Changed mile target to 700 instead of 1000, and added an extension
+0a1295c761305691060e727cca436ec292ccf5fb 408f95f544c0b49ddd5f0d636bca2e5afecf175c Alan Amaral <alan.amaral@avispl.com> 1772212600 -0500	commit: Embellished team play.
+408f95f544c0b49ddd5f0d636bca2e5afecf175c 9934565b04bbab84b5ba2b2debfda387622ed0ec Alan Amaral <alan.amaral@avispl.com> 1772730966 -0500	commit: Current code, mostly working. Still a little buggy.

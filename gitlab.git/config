@@ -1,0 +1,8 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "MB"]
+	url = git@gitlab.com:alamaral2-mb/MB.git
+	fetch = +refs/heads/*:refs/remotes/MB/*

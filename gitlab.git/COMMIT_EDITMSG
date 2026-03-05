@@ -1,0 +1,22 @@
+Current code, mostly working.  Still a little buggy.
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Changes to be committed:
+#	modified:   client/src/components/GameBoard.jsx
+#	modified:   client/src/components/PlayerArea.jsx
+#	modified:   client/src/components/ScoreBoard.jsx
+#	modified:   client/src/components/TurnIndicator.jsx
+#	modified:   client/src/context/GameContext.jsx
+#	modified:   client/src/pages/GamePage.jsx
+#	modified:   client/src/pages/LobbyPage.jsx
+#	modified:   server/src/main/java/com/millebornes/controller/LobbyController.java
+#	modified:   server/src/main/java/com/millebornes/dto/GameStateDTO.java
+#	modified:   server/src/main/java/com/millebornes/dto/LobbyDTO.java
+#	modified:   server/src/main/java/com/millebornes/game/GameEngine.java
+#	modified:   server/src/main/java/com/millebornes/game/ScoreCalculator.java
+#	modified:   server/src/main/java/com/millebornes/model/ScoreSheet.java
+#	modified:   server/src/main/java/com/millebornes/service/GameService.java
+#	modified:   server/src/main/java/com/millebornes/service/LobbyService.java
+#

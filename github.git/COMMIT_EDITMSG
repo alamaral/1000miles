@@ -1,0 +1,17 @@
+Added support for render.
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Changes to be committed:
+#	new file:   Makefile
+#	modified:   client/src/context/GameContext.jsx
+#	modified:   client/src/pages/LobbyPage.jsx
+#	modified:   client/src/services/WebSocketService.js
+#	new file:   client/src/services/api.js
+#	new file:   render.yaml
+#	new file:   server/Dockerfile
+#
+# Untracked files:
+#	gitlab.git/
+#
