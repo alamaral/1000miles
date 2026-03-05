@@ -156,7 +156,7 @@ export default function GamePage() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  const DESIGN_WIDTH = 1500
+  const DESIGN_WIDTH = 1700
   const scale = Math.min(vw / DESIGN_WIDTH, 1)
 
   useEffect(() => {
