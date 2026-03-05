@@ -2,7 +2,17 @@
 
 uname -a
 pushd /usr/lib
-find . -name "*java*"
-#ls -lR /usr/lib
-dpkg -l --no-pager
 
+echo ""
+echo "--------------------------------------"
+echo ""
+find . -name "*java*openjdk*"
+echo ""
+echo "--------------------------------------"
+echo ""
+dpkg -l --no-pager | grep openjdk
+echo ""
+echo "--------------------------------------"
+echo ""
+
+popd
