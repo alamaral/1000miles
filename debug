@@ -2,5 +2,5 @@
 
 uname -a
 ls -lR /usr/lib
-dpkg -l
+dpkg -l --no-pager
 
