@@ -508,16 +508,28 @@ public class GameService {
             }
         }
 
-        boolean gameOver = false;
+        boolean anyOver5000 = false;
         for (int score : state.getCumulativeScores().values()) {
             if (score >= 5000) {
-                gameOver = true;
+                anyOver5000 = true;
                 break;
             }
         }
 
-        if (gameOver) {
+        boolean gameOver = false;
+        if (anyOver5000) {
+            // Find the highest cumulative score
+            int highest = 0;
+            String winnerId = null;
+            for (Map.Entry<String, Integer> entry : state.getCumulativeScores().entrySet()) {
+                if (entry.getValue() > highest) {
+                    highest = entry.getValue();
+                    winnerId = entry.getKey();
+                }
+            }
+            state.setWinnerId(winnerId);
             state.setPhase(GamePhase.GAME_OVER);
+            gameOver = true;
         }
 
         Map<String, Object> scoreMessage = new HashMap<>();
@@ -525,6 +537,9 @@ public class GameService {
         scoreMessage.put("cumulativeScores", state.getCumulativeScores());
         scoreMessage.put("handComplete", true);
         scoreMessage.put("gameComplete", gameOver);
+        if (gameOver) {
+            scoreMessage.put("winnerId", state.getWinnerId());
+        }
         messagingTemplate.convertAndSend("/topic/game/" + state.getRoomCode() + "/score", scoreMessage);
 
         broadcastState(state);

@@ -32,6 +32,7 @@ public class GameState {
     private String lastPlayedByPlayerId;
     private String lastPlayedTargetPlayerId;
     private String lastActionType; // "PLAY" or "DISCARD"
+    private String winnerId;
 
     public GameState() {}
 
@@ -115,6 +116,8 @@ public class GameState {
     public void setLastPlayedTargetPlayerId(String lastPlayedTargetPlayerId) { this.lastPlayedTargetPlayerId = lastPlayedTargetPlayerId; }
     public String getLastActionType() { return lastActionType; }
     public void setLastActionType(String lastActionType) { this.lastActionType = lastActionType; }
+    public String getWinnerId() { return winnerId; }
+    public void setWinnerId(String winnerId) { this.winnerId = winnerId; }
 
     public void clearLastAction() {
         this.lastPlayedCard = null;

@@ -33,6 +33,7 @@ public class GameStateDTO {
     private String lastPlayedByPlayerId;
     private String lastPlayedTargetPlayerId;
     private String lastActionType;
+    private String winnerId;
 
     public static class PlayerViewDTO {
         private String id;
@@ -103,6 +104,7 @@ public class GameStateDTO {
         dto.lastPlayedByPlayerId = state.getLastPlayedByPlayerId();
         dto.lastPlayedTargetPlayerId = state.getLastPlayedTargetPlayerId();
         dto.lastActionType = state.getLastActionType();
+        dto.winnerId = state.getWinnerId();
 
         // Build player views (hiding hands)
         dto.players = new ArrayList<>();
@@ -146,4 +148,5 @@ public class GameStateDTO {
     public String getLastPlayedByPlayerId() { return lastPlayedByPlayerId; }
     public String getLastPlayedTargetPlayerId() { return lastPlayedTargetPlayerId; }
     public String getLastActionType() { return lastActionType; }
+    public String getWinnerId() { return winnerId; }
 }
