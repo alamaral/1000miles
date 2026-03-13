@@ -1,16 +1,51 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+
+// Check which card images exist in /cards/. Tries webp, apng, gif, png in order.
+// Caches results so each image is probed at most once.
+const imageCache = {}
+const IMAGE_EXTS = ['webp', 'apng', 'gif', 'png']
+
+function probeImage(name, exts, onFound, onNone) {
+  if (exts.length === 0) { onNone(); return }
+  const [ext, ...rest] = exts
+  const path = `/cards/${name}.${ext}`
+  const img = new Image()
+  img.onload = () => onFound(path)
+  img.onerror = () => probeImage(name, rest, onFound, onNone)
+  img.src = path
+}
+
+function useCardImage(name) {
+  const [src, setSrc] = useState(imageCache[name] || null)
+  useEffect(() => {
+    if (!name) return
+    if (imageCache[name] !== undefined) { setSrc(imageCache[name]); return }
+    probeImage(name, IMAGE_EXTS,
+      (path) => { imageCache[name] = path; setSrc(path) },
+      () => { imageCache[name] = null; setSrc(null) }
+    )
+  }, [name])
+  return src
+}
 
 const BORDER_HAZARD = '#f44336'
 const BORDER_REMEDY = '#4caf50'
 const BORDER_SAFETY = '#ffd700'
-const BORDER_DISTANCE = '#4caf50'
+
+const DISTANCE_COLORS = {
+  MILES_25:  { bg: '#f5f5f5', border: '#388e3c', text: '#2e7d32', accent: '#43a047' },
+  MILES_50:  { bg: '#f5f5f5', border: '#1565c0', text: '#1565c0', accent: '#1e88e5' },
+  MILES_75:  { bg: '#f5f5f5', border: '#6a1b9a', text: '#6a1b9a', accent: '#8e24aa' },
+  MILES_100: { bg: '#f5f5f5', border: '#e65100', text: '#e65100', accent: '#f4511e' },
+  MILES_200: { bg: '#f5f5f5', border: '#c62828', text: '#c62828', accent: '#e53935' },
+}
 
 const CARD_COLORS = {
-  MILES_25: { bg: '#e8f5e9', border: BORDER_DISTANCE, text: '#2e7d32' },
-  MILES_50: { bg: '#e8f5e9', border: BORDER_DISTANCE, text: '#2e7d32' },
-  MILES_75: { bg: '#e8f5e9', border: BORDER_DISTANCE, text: '#2e7d32' },
-  MILES_100: { bg: '#e8f5e9', border: BORDER_DISTANCE, text: '#2e7d32' },
-  MILES_200: { bg: '#e8f5e9', border: BORDER_DISTANCE, text: '#1b5e20' },
+  MILES_25:  DISTANCE_COLORS.MILES_25,
+  MILES_50:  DISTANCE_COLORS.MILES_50,
+  MILES_75:  DISTANCE_COLORS.MILES_75,
+  MILES_100: DISTANCE_COLORS.MILES_100,
+  MILES_200: DISTANCE_COLORS.MILES_200,
   ACCIDENT: { bg: '#ffebee', border: BORDER_HAZARD, text: '#c62828' },
   OUT_OF_GAS: { bg: '#ffebee', border: BORDER_HAZARD, text: '#c62828' },
   FLAT_TIRE: { bg: '#ffebee', border: BORDER_HAZARD, text: '#c62828' },
@@ -72,11 +107,41 @@ const CARD_LABELS = {
 }
 
 export default function CardComponent({ card, onClick, selected, small, faceDown, draggable, dragIndex, style: extraStyle }) {
+  const imageSrc = useCardImage(faceDown ? 'CARD_BACK' : card)
+
   const handleDragStart = (e) => {
     if (dragIndex != null) {
       e.dataTransfer.setData('text/plain', String(dragIndex))
       e.dataTransfer.effectAllowed = 'move'
     }
+  }
+
+  // Image-based rendering (used when a matching PNG exists in /cards/)
+  if (imageSrc) {
+    return (
+      <div
+        onClick={onClick}
+        draggable={!!draggable}
+        onDragStart={handleDragStart}
+        data-drag-index={draggable && dragIndex != null ? dragIndex : undefined}
+        style={{
+          width: small ? 100 : 160,
+          height: small ? 140 : 220,
+          borderRadius: 8,
+          boxShadow: selected ? '0 0 12px rgba(255,215,0,0.8)' : '0 2px 4px rgba(0,0,0,0.3)',
+          cursor: draggable ? 'grab' : (onClick ? 'pointer' : 'default'),
+          transition: 'transform 0.15s, box-shadow 0.15s',
+          transform: selected ? 'translateY(-8px)' : 'none',
+          overflow: 'hidden',
+          outline: selected ? '3px solid #ffd700' : 'none',
+          ...extraStyle
+        }}
+      >
+        <img src={imageSrc} alt={card || 'card back'} draggable={false} style={{
+          width: '100%', height: '100%', objectFit: 'fill', display: 'block',
+        }} />
+      </div>
+    )
   }
 
   if (faceDown) {
@@ -109,6 +174,86 @@ export default function CardComponent({ card, onClick, selected, small, faceDown
   const colors = CARD_COLORS[card] || { bg: '#eee', border: '#999', text: '#333' }
   const icon = CARD_ICONS[card] || '?'
   const label = CARD_LABELS[card] || card
+  const isDistance = card.startsWith('MILES_')
+
+  const baseStyle = {
+    width: small ? 100 : 160,
+    height: small ? 140 : 220,
+    borderRadius: 8,
+    border: `3px solid ${selected ? '#ffd700' : colors.border}`,
+    boxShadow: selected ? '0 0 12px rgba(255,215,0,0.8)' : '0 2px 4px rgba(0,0,0,0.3)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: draggable ? 'grab' : (onClick ? 'pointer' : 'default'),
+    transition: 'transform 0.15s, box-shadow 0.15s',
+    transform: selected ? 'translateY(-8px)' : 'none',
+    overflow: 'hidden',
+    position: 'relative',
+    ...extraStyle
+  }
+
+  if (isDistance) {
+    const miles = card.replace('MILES_', '')
+    const dc = colors
+    return (
+      <div
+        onClick={onClick}
+        draggable={!!draggable}
+        onDragStart={handleDragStart}
+        data-drag-index={draggable && dragIndex != null ? dragIndex : undefined}
+        style={{
+          ...baseStyle,
+          background: dc.bg,
+          padding: 0,
+        }}
+      >
+        {/* Top-left and bottom-right corner numbers */}
+        <span style={{
+          position: 'absolute', top: small ? 4 : 6, left: small ? 6 : 8,
+          fontSize: small ? 12 : 16, fontWeight: 'bold', color: dc.text, lineHeight: 1
+        }}>{miles}</span>
+        <span style={{
+          position: 'absolute', bottom: small ? 4 : 6, right: small ? 6 : 8,
+          fontSize: small ? 12 : 16, fontWeight: 'bold', color: dc.text, lineHeight: 1,
+          transform: 'rotate(180deg)'
+        }}>{miles}</span>
+
+        {/* Colored stripe across the middle */}
+        <div style={{
+          position: 'absolute',
+          top: '50%', left: 0, right: 0,
+          transform: 'translateY(-50%)',
+          height: small ? 50 : 80,
+          background: `linear-gradient(135deg, ${dc.accent}, ${dc.border})`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <span style={{
+            fontSize: small ? 32 : 52,
+            fontWeight: 900,
+            color: '#fff',
+            textShadow: '1px 2px 3px rgba(0,0,0,0.3)',
+            letterSpacing: small ? 1 : 2,
+            lineHeight: 1,
+          }}>{miles}</span>
+        </div>
+
+        {/* "mi" label below stripe */}
+        <span style={{
+          position: 'absolute',
+          bottom: small ? 16 : 24,
+          fontSize: small ? 11 : 14,
+          fontWeight: 'bold',
+          color: dc.text,
+          textTransform: 'uppercase',
+          letterSpacing: small ? 2 : 4,
+        }}>miles</span>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -117,26 +262,16 @@ export default function CardComponent({ card, onClick, selected, small, faceDown
       onDragStart={handleDragStart}
       data-drag-index={draggable && dragIndex != null ? dragIndex : undefined}
       style={{
-        width: small ? 100 : 160,
-        height: small ? 140 : 220,
-        borderRadius: 8,
+        ...baseStyle,
         background: colors.bg,
-        border: `3px solid ${selected ? '#ffd700' : colors.border}`,
-        boxShadow: selected ? '0 0 12px rgba(255,215,0,0.8)' : '0 2px 4px rgba(0,0,0,0.3)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: draggable ? 'grab' : (onClick ? 'pointer' : 'default'),
-        transition: 'transform 0.15s, box-shadow 0.15s',
-        transform: selected ? 'translateY(-8px)' : 'none',
         padding: small ? 4 : 8,
-        ...extraStyle
       }}
     >
       <span style={{
         fontSize: small ? 28 : 44,
-        lineHeight: 1
+        lineHeight: 1,
+        color: colors.text,
+        textShadow: '0 0 3px rgba(0,0,0,0.2)',
       }}>
         {icon}
       </span>
