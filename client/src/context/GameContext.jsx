@@ -224,13 +224,23 @@ export function GameProvider({ children }) {
     setLobby(data)
   }, [roomCode, playerId])
 
+  const reorderHand = useCallback((fromIndex, toIndex) => {
+    setHand(prev => {
+      const next = [...prev]
+      const [card] = next.splice(fromIndex, 1)
+      next.splice(toIndex, 0, card)
+      return next
+    })
+  }, [])
+
   const value = {
     playerId, playerName, roomCode, lobby, gameState, hand, error, scores, spectating,
     setPlayerName, setError,
     createRoom, joinRoom, spectateRoom, startGame, leaveRoom,
     drawCard, playCard, discardCard,
     declareCoupFourre, passCoupFourre,
-    declareExtension, startNewHand, resetRoom, choosePartner
+    declareExtension, startNewHand, resetRoom, choosePartner,
+    reorderHand
   }
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>

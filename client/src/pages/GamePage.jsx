@@ -144,8 +144,12 @@ export default function GamePage() {
   const navigate = useNavigate()
   const {
     gameState, hand, playerId, error, scores, lobby, spectating,
-    drawCard, playCard, discardCard, startGame, resetRoom, declareExtension, choosePartner, leaveRoom
+    drawCard, playCard, discardCard, startGame, resetRoom, declareExtension, choosePartner, leaveRoom,
+    reorderHand
   } = useGame()
+
+  // Tracks the current index of the card being dragged (updated during hand reorder)
+  const handDragIndexRef = useRef(null)
 
   const [vw, setVw] = useState(window.innerWidth)
   const [vh, setVh] = useState(window.innerHeight)
@@ -238,8 +242,18 @@ export default function GamePage() {
         state.clone.style.top = (touch.clientY - state.visualH / 2) + 'px'
       }
 
-      // Highlight drop target under finger
+      // Check if finger is over another card in the hand — reorder
       const el = document.elementFromPoint(touch.clientX, touch.clientY)
+      const overCard = el?.closest('[data-drag-index]')
+      if (overCard && callbacksRef.current.reorderHand) {
+        const overIdx = parseInt(overCard.dataset.dragIndex, 10)
+        if (!isNaN(overIdx) && overIdx !== state.dragIndex) {
+          callbacksRef.current.reorderHand(state.dragIndex, overIdx)
+          state.dragIndex = overIdx
+        }
+      }
+
+      // Highlight drop target under finger
       const dropTarget = el?.closest('[data-drop-target]')
 
       if (state.lastHighlight && state.lastHighlight !== dropTarget) {
@@ -292,30 +306,41 @@ export default function GamePage() {
     drawCard()
   }
 
-  const handleDropOnPlayer = (cardIndex, targetPlayerId) => {
-    if (!canDrag) return
-    if (cardIndex < 0 || cardIndex >= hand.length) return
+  const resolveCardIndex = (cardIndex) => {
+    // After hand reorder, the index from dataTransfer may be stale.
+    // Use the live ref if it was updated during a reorder drag.
+    if (handDragIndexRef.current != null) return handDragIndexRef.current
+    return cardIndex
+  }
 
-    const card = hand[cardIndex]
+  const handleDropOnPlayer = (cardIndex, targetPlayerId) => {
+    const idx = resolveCardIndex(cardIndex)
+    handDragIndexRef.current = null
+    if (!canDrag) return
+    if (idx < 0 || idx >= hand.length) return
+
+    const card = hand[idx]
 
     if (targetPlayerId) {
       // Dropped on an opponent - play as hazard
-      playCard(cardIndex, targetPlayerId)
+      playCard(idx, targetPlayerId)
     } else {
       // Dropped on own area - play distance/remedy/safety
       if (HAZARD_CARDS.includes(card)) return // can't play hazard on yourself
-      playCard(cardIndex, null)
+      playCard(idx, null)
     }
   }
 
   const handleDropOnDiscard = (cardIndex) => {
+    const idx = resolveCardIndex(cardIndex)
+    handDragIndexRef.current = null
     if (!canDrag) return
-    if (cardIndex < 0 || cardIndex >= hand.length) return
-    discardCard(cardIndex)
+    if (idx < 0 || idx >= hand.length) return
+    discardCard(idx)
   }
 
   // Keep callbacks ref in sync every render (must be after handler definitions)
-  callbacksRef.current = { handleDropOnPlayer, handleDropOnDiscard, canDrag, playerId, scale }
+  callbacksRef.current = { handleDropOnPlayer, handleDropOnDiscard, canDrag, playerId, scale, reorderHand }
 
   // --- Card play animation ---
   const [animState, setAnimState] = useState(null) // { card, fromRect, toRect }
@@ -731,7 +756,7 @@ export default function GamePage() {
               borderRadius: 12,
               padding: '8px 16px'
             }}>
-              <PlayerHand hand={hand} canDrag={canDrag} />
+              <PlayerHand hand={hand} canDrag={canDrag} onReorder={reorderHand} dragIndexRef={handDragIndexRef} />
             </div>
           )}
         </div>
