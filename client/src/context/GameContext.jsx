@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Central game state context providing REST calls, WebSocket subscriptions, and session persistence.
+
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react'
 import wsService from '../services/WebSocketService'
 import { API_BASE } from '../services/api'

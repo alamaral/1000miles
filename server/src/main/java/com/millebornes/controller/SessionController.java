@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// STOMP handler for WebSocket session registration, associating players and spectators with game rooms.
+
 package com.millebornes.controller;
 
 import com.millebornes.dto.GameStateDTO;

@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Lobby page for creating, joining, and spectating game rooms.
+
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGame } from '../context/GameContext'

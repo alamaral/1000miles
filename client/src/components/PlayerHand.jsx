@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Player hand component with draggable cards and drag-to-reorder support.
+
 import React, { useRef } from 'react'
 import CardComponent from './CardComponent'
 

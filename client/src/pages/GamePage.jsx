@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Main game page handling card play, drag-drop interactions, animations, and spectator mode.
+
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useGame } from '../context/GameContext'

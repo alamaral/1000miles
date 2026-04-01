@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Configures STOMP over WebSocket with SockJS, defining message broker prefixes and endpoints.
+
 package com.millebornes.config;
 
 import org.springframework.context.annotation.Configuration;

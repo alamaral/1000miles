@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Enum defining all Mille Bornes cards (distance, hazard, remedy, safety) with their types and attributes.
+
 package com.millebornes.model;
 
 public enum Card {

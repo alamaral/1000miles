@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// STOMP message handler for in-game actions: draw, play, discard, coup fourre, and extension decisions.
+
 package com.millebornes.controller;
 
 import com.millebornes.service.GameService;

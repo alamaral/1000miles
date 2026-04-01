@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Core game service orchestrating game start, draw, play, discard, coup fourre, scoring, and state broadcasting.
+
 package com.millebornes.service;
 
 import com.millebornes.dto.GameStateDTO;

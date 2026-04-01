@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Game board component that arranges player and team areas with card drop targets.
+
 import React from 'react'
 import PlayerArea from './PlayerArea'
 

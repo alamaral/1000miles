@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Listens for WebSocket connect and disconnect events to manage spectator sessions and lobby updates.
+
 package com.millebornes.config;
 
 import com.millebornes.model.GameRoom;

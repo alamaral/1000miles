@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Reusable card component that renders card images with format probing and drag support.
+
 import React, { useState, useEffect } from 'react'
 
 // Check which card images exist in /cards/. Tries webp, apng, gif, png in order.

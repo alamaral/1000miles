@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Calculates hand and game scores including distance, safety, coup fourre, trip, and shutout bonuses.
+
 package com.millebornes.game;
 
 import com.millebornes.model.*;

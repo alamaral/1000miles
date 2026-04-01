@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Turn indicator component showing whose turn it is and the current game phase.
+
 import React from 'react'
 
 export default function TurnIndicator({ gameState, playerId }) {

@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Tracks scoring breakdown for a player's hand including distance, safety, bonus, and coup fourre points.
+
 package com.millebornes.model;
 
 public class ScoreSheet {

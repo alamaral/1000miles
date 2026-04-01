@@ -1,3 +1,12 @@
+# Copyright © 2026 Alan Amaral
+# All rights reserved.
+#
+# Unauthorized copying, modification, distribution, or use of this software,
+# via any medium, is strictly prohibited without prior written permission.
+#
+# Description:
+# Render.com deployment blueprint for the server and client services.
+
 # Render Blueprint - https://render.com/docs/blueprint-spec
 # Deploy both services from one repo with `render blueprint apply`
 

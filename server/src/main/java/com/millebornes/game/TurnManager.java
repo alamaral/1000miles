@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Manages turn advancement and player turn assignment, handling empty deck skip-draw logic.
+
 package com.millebornes.game;
 
 import com.millebornes.model.GameState;

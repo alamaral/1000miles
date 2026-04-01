@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Service managing game room lifecycle: creation, joining, team configuration, and player management.
+
 package com.millebornes.service;
 
 import com.millebornes.dto.LobbyDTO;

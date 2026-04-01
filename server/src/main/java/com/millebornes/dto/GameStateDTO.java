@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Public-facing game state DTO that hides other players' hands and includes animation tracking fields.
+
 package com.millebornes.dto;
 
 import com.millebornes.model.*;

@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Discard pile component with drag-and-drop support for discarding cards.
+
 import React, { useState } from 'react'
 import CardComponent from './CardComponent'
 

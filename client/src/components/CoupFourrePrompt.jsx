@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Prompt component allowing players to declare a Coup Fourre in response to a hazard card.
+
 import React, { useState, useEffect } from 'react'
 import { useGame } from '../context/GameContext'
 import { CARD_LABELS } from './CardComponent'

@@ -1,3 +1,12 @@
+// Copyright © 2026 Alan Amaral
+// All rights reserved.
+//
+// Unauthorized copying, modification, distribution, or use of this software,
+// via any medium, is strictly prohibited without prior written permission.
+//
+// Description:
+// Unit tests verifying correct deck size (106 cards) and card distribution for all card types.
+
 package com.millebornes.game;
 
 import com.millebornes.model.Card;
